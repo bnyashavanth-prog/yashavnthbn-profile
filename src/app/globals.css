@@ -1,74 +1,97 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #000000;
-  --accent: #ccff00;
-  --grid-color: rgba(0, 0, 0, 0.1);
-  --border-color: #000000;
-  --card-bg: #ffffff;
-}
-
-.dark {
-  --background: #000000;
-  --foreground: #ffffff;
-  --accent: #ccff00;
-  --grid-color: rgba(255, 255, 255, 0.15);
-  --border-color: #ffffff;
-  --card-bg: #111111;
+@layer base {
+  :root {
+    --background: #141210;
+    --card: #1c1916;
+    --primary: #f5f1ea;
+    --secondary: #b8afa3;
+    --accent: #f0a94e;
+    --border: rgba(245, 241, 234, 0.1);
+  }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-grid: var(--grid-color);
-  --color-brutalist-border: var(--border-color);
-  --color-card: var(--card-bg);
+@layer utilities {
+  .font-sans {
+    font-family: var(--font-space), sans-serif;
+  }
+  .font-mono {
+    font-family: var(--font-mono), monospace;
+  }
+  
+  .border-default {
+    border: 1px solid var(--border);
+  }
+  
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f0a94e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#141210];
+  }
 }
 
-html {
-  scroll-behavior: smooth;
+/* Animations */
+@media (prefers-reduced-motion: no-preference) {
+  .typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--accent);
+    animation: typing 1s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .fade-in {
+    animation: fadeIn 1s ease-out forwards;
+    opacity: 0;
+  }
 }
 
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  background-image: 
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-position: center top;
-  background-attachment: fixed;
+/* Fallback for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .typewriter {
+    border-right: none;
+    white-space: normal;
+  }
+  .fade-in-up, .fade-in {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }
 
-::selection {
-  background-color: var(--accent);
-  color: #000000;
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
 }
 
-/* Brutalist raw styles */
-input, textarea, button {
-  font-family: inherit;
-  border-radius: 0;
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--accent) }
 }
 
-.brutalist-border {
-  border: 2px solid var(--border-color);
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.brutalist-shadow {
-  box-shadow: 4px 4px 0px 0px var(--border-color);
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
-.brutalist-shadow:hover {
-  box-shadow: 2px 2px 0px 0px var(--border-color);
-  transform: translate(2px, 2px);
+
+.pulse-dot {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
-.brutalist-shadow:active {
-  box-shadow: 0px 0px 0px 0px var(--border-color);
-  transform: translate(4px, 4px);
-}
-.transition-brutalist {
-  transition: all 0.15s ease-out;
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .5; }
 }

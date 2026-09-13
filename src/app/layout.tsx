@@ -1,10 +1,20 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
+const spaceGrotesk = Space_Grotesk({ 
+  subsets: ["latin"], 
+  variable: "--font-space" 
+});
+
+const jetBrainsMono = JetBrains_Mono({ 
+  subsets: ["latin"], 
+  variable: "--font-mono" 
+});
+
 export const metadata: Metadata = {
-  title: "Portfolio | Startup COO & Developer",
-  description: "Personal portfolio website featuring brutalist design.",
+  title: "Yashavnth BN | Portfolio",
+  description: "COO, Software Developer, and Product Builder",
 };
 
 export default function RootLayout({
@@ -13,16 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${spaceGrotesk.variable} ${jetBrainsMono.variable} font-sans antialiased bg-[#141210] text-[#F5F1EA]`}>
+        {children}
       </body>
     </html>
   );
