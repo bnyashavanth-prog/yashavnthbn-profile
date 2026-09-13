@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const jetBrainsMono = JetBrains_Mono({ 
-  subsets: ["latin"], 
-  variable: "--font-mono" 
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
   title: "Yashavnth BN | Portfolio",
-  description: "COO, Software Developer, and Product Builder",
+  description: "CS Student, COO, and Full-Stack Developer",
 };
 
 export default function RootLayout({
@@ -19,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${jetBrainsMono.variable} font-mono antialiased bg-[var(--background)] text-[var(--primary)]`}>
+      <body className={`${inter.variable} ${jetBrainsMono.variable} font-sans antialiased bg-[var(--background)] text-[var(--primary)]`}>
         {children}
       </body>
     </html>
