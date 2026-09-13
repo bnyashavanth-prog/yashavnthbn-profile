@@ -12,41 +12,32 @@
   }
   
   :root {
-    --background: #141210;
-    --card: #1c1916;
-    --primary: #f5f1ea;
-    --secondary: #b8afa3;
-    --accent: #f0a94e;
-    --border: rgba(245, 241, 234, 0.1);
+    --background: #0B0B0D;
+    --card: #111113;
+    --primary: #FFFFFF;
+    --secondary: #A1A1AA; /* Muted gray */
+    --accent: #F2A93B;
+    --border: rgba(255, 255, 255, 0.1);
   }
 }
 
 @layer utilities {
-  .font-sans {
-    font-family: var(--font-space), sans-serif;
-  }
-  .font-mono {
-    font-family: var(--font-mono), monospace;
-  }
-  
   .border-default {
     border: 1px solid var(--border);
   }
   
   .focus-ring {
-    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f0a94e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#141210];
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F2A93B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0D];
+  }
+  
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
   }
 }
 
 /* Animations */
 @media (prefers-reduced-motion: no-preference) {
-  .typewriter {
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 2px solid var(--accent);
-    animation: typing 1s steps(40, end), blink-caret 0.75s step-end infinite;
-  }
-
   .fade-in-up {
     animation: fadeInUp 0.8s ease-out forwards;
     opacity: 0;
@@ -57,28 +48,24 @@
     animation: fadeIn 1s ease-out forwards;
     opacity: 0;
   }
+  
+  .draw-line {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 2s ease-out forwards;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .typewriter {
-    border-right: none;
-    white-space: normal;
-  }
   .fade-in-up, .fade-in {
     opacity: 1;
     transform: none;
     animation: none;
   }
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: var(--accent) }
+  .draw-line {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
 }
 
 @keyframes fadeInUp {
@@ -94,11 +81,17 @@
   }
 }
 
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 .pulse-dot {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: .5; }
+  50% { opacity: .4; }
 }
