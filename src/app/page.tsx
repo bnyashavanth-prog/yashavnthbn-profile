@@ -51,13 +51,12 @@ export default function Home() {
   ];
 
   const filteredProjects = activeFilter === "FULL STACK" ? projects : projects.filter(p => p.category === activeFilter);
-  // Fallback to show all if filter has no projects just for display
   const displayProjects = filteredProjects.length > 0 ? filteredProjects : projects;
 
   return (
     <div className="bg-[#141210] min-h-screen text-[#F5F1EA] font-sans selection:bg-[#F0A94E] selection:text-[#141210]">
-      {/* GLOBAL NAV */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-[#141210]/90 backdrop-blur-md border-b border-[rgba(245,241,234,0.1)] px-6 py-4 flex justify-between items-center text-sm font-mono">
+      {/* GLOBAL NAV - sticky, fixed height, full width */}
+      <nav className="sticky top-0 z-[100] w-full h-[72px] bg-[#141210] border-b border-[rgba(245,241,234,0.1)] px-[32px] flex justify-between items-center text-sm font-mono">
         <div className="flex-1 hidden md:block text-[#F5F1EA]">
           <span className="text-[#F0A94E]">&gt;</span> yashavnth@portfolio:~
         </div>
@@ -85,14 +84,15 @@ export default function Home() {
         <div className="flex-1 flex justify-end items-center gap-2 text-xs md:text-sm text-[#B8AFA3]">
           <div className="w-2 h-2 rounded-full bg-[#F0A94E] pulse-dot"></div>
           <span className="hidden md:inline text-[#B8AFA3]">STATUS: ONLINE</span>
-          <span className="ml-2 w-[60px] text-right text-[#B8AFA3]">{time}</span>
+          <span className="ml-2 w-auto min-w-[65px] text-right text-[#B8AFA3] whitespace-nowrap">{time}</span>
         </div>
       </nav>
 
-      <main className="max-w-6xl mx-auto px-6 pt-32 pb-24">
+      {/* Padding top is applied naturally by sticky nav, but we keep some padding to separate content */}
+      <main className="w-full max-w-6xl mx-auto px-6 pb-[96px]">
         
         {/* 1. HERO */}
-        <section id="home" className="grid md:grid-cols-2 gap-12 items-center min-h-[80vh] my-[64px]">
+        <section id="home" className="grid md:grid-cols-2 gap-12 items-center py-[64px]">
           <div className="space-y-6">
             <div className="font-mono text-[#B8AFA3] text-sm fade-in-up" style={{ animationDelay: "0.1s" }}>
               // building digital solutions
@@ -121,41 +121,51 @@ export default function Home() {
               </a>
             </div>
             
-            <div className="grid grid-cols-3 gap-6 pt-12 fade-in-up" style={{ animationDelay: "1.9s" }}>
-              <div className="border-l border-[#F0A94E] pl-4 font-mono text-xs">
-                <div className="text-[#F5F1EA] text-lg font-bold font-sans mb-1">5+</div>
-                <div className="text-[#B8AFA3]">Projects Built</div>
+            <div className="flex flex-wrap gap-[40px] pt-12 fade-in-up" style={{ animationDelay: "1.9s" }}>
+              <div className="flex flex-col gap-[4px] border-l-2 border-[#F0A94E] pl-[16px] py-[8px] pr-[16px]">
+                <div className="text-[#F5F1EA] text-[24px] font-bold font-sans leading-none">5+</div>
+                <div className="text-[#B8AFA3] font-mono text-[12px] uppercase">Projects Built</div>
               </div>
-              <div className="border-l border-[#F0A94E] pl-4 font-mono text-xs">
-                <div className="text-[#F5F1EA] text-lg font-bold font-sans mb-1">3+</div>
-                <div className="text-[#B8AFA3]">Years Exp</div>
+              <div className="flex flex-col gap-[4px] border-l-2 border-[#F0A94E] pl-[16px] py-[8px] pr-[16px]">
+                <div className="text-[#F5F1EA] text-[24px] font-bold font-sans leading-none">3+</div>
+                <div className="text-[#B8AFA3] font-mono text-[12px] uppercase">Years Exp</div>
               </div>
-              <div className="border-l border-[#F0A94E] pl-4 font-mono text-xs">
-                <div className="text-[#F5F1EA] text-lg font-bold font-sans mb-1">&infin;</div>
-                <div className="text-[#B8AFA3]">Learning Always</div>
+              <div className="flex flex-col gap-[4px] border-l-2 border-[#F0A94E] pl-[16px] py-[8px] pr-[16px]">
+                <div className="text-[#F5F1EA] text-[24px] font-bold font-sans leading-none">&infin;</div>
+                <div className="text-[#B8AFA3] font-mono text-[12px] uppercase">Learning Always</div>
               </div>
             </div>
           </div>
           
-          <div className="relative fade-in" style={{ animationDelay: "2.1s" }}>
-            <div className="aspect-[4/5] bg-[#1C1916] rounded-[20px] border border-[rgba(245,241,234,0.1)] relative overflow-hidden flex items-center justify-center">
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 500">
+          <div className="relative fade-in w-full flex justify-center md:justify-end" style={{ animationDelay: "2.1s" }}>
+            {/* Portrait fixed frame */}
+            <div className="w-[380px] h-[480px] max-w-full bg-[#1C1916] rounded-[24px] border border-[rgba(245,241,234,0.1)] relative overflow-hidden flex items-center justify-center shrink-0">
+              
+              {/* Fallback Photo Icon */}
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#B8AFA3" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="opacity-20">
+                <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                <circle cx="9" cy="9" r="2"/>
+                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+              </svg>
+
+              {/* Node Graph Overlay */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 380 480">
                 <g stroke="rgba(240, 169, 78, 0.4)" strokeWidth="1" fill="none">
-                  <path d="M100,100 L200,200 L300,150" />
-                  <path d="M200,200 L150,350 L250,400 L300,150" />
+                  <path d="M90,90 L190,190 L290,140" />
+                  <path d="M190,190 L140,340 L240,390 L290,140" />
                 </g>
                 <g fill="#F0A94E">
-                  <circle cx="100" cy="100" r="4" className="pulse-dot" style={{animationDelay: "0s"}} />
-                  <circle cx="300" cy="150" r="4" className="pulse-dot" style={{animationDelay: "0.2s"}} />
-                  <circle cx="150" cy="350" r="4" className="pulse-dot" style={{animationDelay: "0.4s"}} />
-                  <circle cx="250" cy="400" r="4" className="pulse-dot" style={{animationDelay: "0.6s"}} />
-                  <circle cx="200" cy="200" r="6" />
+                  <circle cx="90" cy="90" r="4" className="pulse-dot" style={{animationDelay: "0s"}} />
+                  <circle cx="290" cy="140" r="4" className="pulse-dot" style={{animationDelay: "0.2s"}} />
+                  <circle cx="140" cy="340" r="4" className="pulse-dot" style={{animationDelay: "0.4s"}} />
+                  <circle cx="240" cy="390" r="4" className="pulse-dot" style={{animationDelay: "0.6s"}} />
+                  <circle cx="190" cy="190" r="6" />
                 </g>
                 <g fill="#F0A94E" fontSize="10" fontFamily="monospace" className="opacity-80">
-                  <text x="110" y="103">[STRATEGY]</text>
-                  <text x="310" y="153">[PRODUCT]</text>
-                  <text x="60" y="353">[SYSTEMS]</text>
-                  <text x="260" y="403">[TECHNOLOGY]</text>
+                  <text x="100" y="93">[STRATEGY]</text>
+                  <text x="300" y="143">[PRODUCT]</text>
+                  <text x="50" y="343">[SYSTEMS]</text>
+                  <text x="250" y="393">[TECHNOLOGY]</text>
                 </g>
               </svg>
             </div>
@@ -163,12 +173,12 @@ export default function Home() {
         </section>
 
         {/* 2. ABOUT */}
-        <section id="about" className="grid md:grid-cols-2 gap-12 items-start scroll-mt-24 my-[64px]">
+        <section id="about" className="grid md:grid-cols-2 gap-12 items-start scroll-mt-24 py-[64px]">
           <div className="space-y-6">
             <div className="font-mono text-[#B8AFA3] text-sm">
               // about
             </div>
-            <div className="border-l-2 border-[#F0A94E] pl-6 space-y-4 text-[#B8AFA3] font-sans leading-relaxed">
+            <div className="border-l-2 border-[#F0A94E] pl-[16px] space-y-4 text-[#B8AFA3] font-sans leading-relaxed">
               <p>
                 I am a technical leader passionate about the intersection of business strategy and software engineering. I started my journey writing code, but quickly realized that the best code solves operational bottlenecks.
               </p>
@@ -199,7 +209,7 @@ export default function Home() {
         </section>
 
         {/* 3. COMPANY */}
-        <section id="company" className="scroll-mt-24 my-[64px]">
+        <section id="company" className="scroll-mt-24 py-[64px]">
           <div className="bg-[#1C1916] rounded-[20px] p-[24px] border border-[rgba(245,241,234,0.1)] transition-colors group">
             <div className="flex justify-between items-start mb-[16px]">
               <div className="px-[14px] py-[8px] border border-[#F0A94E] text-[#F0A94E] font-mono text-[13px] rounded-[10px] bg-[#221E1A]">
@@ -238,7 +248,7 @@ export default function Home() {
         </section>
 
         {/* 4. WORK */}
-        <section id="work" className="scroll-mt-24 my-[64px]">
+        <section id="work" className="scroll-mt-24 py-[64px]">
           <div className="mb-[32px]">
             <div className="font-mono text-[#B8AFA3] text-sm mb-4">
               // selected work
@@ -293,7 +303,7 @@ export default function Home() {
         </section>
 
         {/* 5. SKILLS */}
-        <section id="skills" className="scroll-mt-24 my-[64px]">
+        <section id="skills" className="scroll-mt-24 py-[64px]">
           <div className="mb-[32px]">
             <div className="font-mono text-[#B8AFA3] text-sm mb-4">
               // technical arsenal
@@ -347,7 +357,7 @@ export default function Home() {
         </section>
 
         {/* 6. CONTACT */}
-        <section id="contact" className="scroll-mt-24 my-[64px] flex flex-col items-center">
+        <section id="contact" className="scroll-mt-24 py-[64px] flex flex-col items-center">
           <div className="text-center mb-[48px]">
             <h2 className="text-[32px] md:text-[40px] font-bold font-sans text-[#F5F1EA] mb-[12px]">
               Let's build something <span className="text-[#F0A94E]">useful.</span>
